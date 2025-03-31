@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:HighlightsTracker"
+             xmlns:vm="clr-namespace:HighlightsTracker.ViewModels"
+             xmlns:model="clr-namespace:HighlightsTracker.Models"
+             x:Class="HighlightsTracker.ManagePeoplePage"
+             x:DataType="vm:PeopleViewModel">
+    <ScrollView>
+        <VerticalStackLayout 
+            Padding="10,5" 
+            Spacing="10">
+            <Entry Text="{Binding NameInput}" Placeholder="Enter name" />
+            <Button Text="Add person"
+                    Command="{Binding AddPersonCommand}"
+                    CommandParameter="{Binding NameInput}" />
+
+            <CollectionView ItemsSource="{Binding People}" Margin="0, 20, 0, 0">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="5"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Person">
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Label Text="{Binding Name}" FontSize="20" VerticalOptions="Center" />
+                            <Button Text="Remove" BackgroundColor="{StaticResource Tertiary}" FontSize="14" Padding="10,0,10,0" MaximumHeightRequest="35"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PeopleViewModel}}, Path=RemovePersonCommand, x:DataType=vm:PeopleViewModel}"
+                                    CommandParameter="{Binding .}" >
+                                
+                            </Button>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
