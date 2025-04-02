@@ -1,4 +1,6 @@
-﻿using HighlightsTracker.ViewModels;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Storage;
+using HighlightsTracker.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace HighlightsTracker
@@ -10,6 +12,7 @@ namespace HighlightsTracker
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

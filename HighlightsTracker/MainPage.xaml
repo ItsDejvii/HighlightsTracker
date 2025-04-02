@@ -7,81 +7,53 @@
              x:DataType="vm:PeopleViewModel">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Copy for FFMPEG" Command="{Binding CopyToClipboardCommand}" />
-        <ToolbarItem Text="Clear times" Command="{Binding ClearTimesCommand}" />
+        <ToolbarItem Text="CSV Export" Command="{Binding ExportToCSVCommand}" />
+        <ToolbarItem Text="Clear events" Clicked="OnDeleteEventsClicked" />
     </ContentPage.ToolbarItems>
-    
+
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <ScrollView Grid.Row="0">
-            <VerticalStackLayout Padding="15,0" Spacing="25">
-                <!--<CollectionView x:Name="PeopleCollectionView" ItemsSource="{Binding People}">
+        <Grid Grid.Row="0" Margin="0, 5" ColumnSpacing="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Text="Goal" BackgroundColor="{StaticResource Tertiary}" Clicked="OnEventButtonClicked" Grid.Column="1" HorizontalOptions="Center" />
+            <Button Text="Assist" BackgroundColor="{StaticResource Tertiary}" Clicked="OnEventButtonClicked" Grid.Column="2" HorizontalOptions="Center" />
+            <Button Text="Defense" BackgroundColor="{StaticResource Tertiary}" Clicked="OnEventButtonClicked" Grid.Column="3" HorizontalOptions="Center" />
+        </Grid>
+        <ScrollView Grid.Row="1" Margin="0,5">
+            <VerticalStackLayout Padding="15,0" Spacing="50">
+                <CollectionView ItemsSource="{Binding Events}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Person">
-                            <StackLayout Padding="0, 5">
-                                <Label Text="{Binding Name}" FontSize="20" >
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPage}}, Path=AddPersonTimeCommand}"
-                                                              CommandParameter="{Binding .}" />
-                                    </Label.GestureRecognizers>
-                                </Label>
-                                <Border Stroke="{StaticResource TertiaryBrush}" Margin="0,5,0,10" />
-                                <CollectionView ItemsSource="{Binding PersonTimes}">
-                                    <CollectionView.ItemsLayout>
-                                        <GridItemsLayout Orientation="Vertical" Span="4" VerticalItemSpacing="10" />
-                                    </CollectionView.ItemsLayout>
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate x:DataType="model:PersonTime">
-                                            <Label Text="{Binding Time}">
-                                                <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainPage}}, Path=RemovePersonTimeCommand}"
-                                                                          CommandParameter="{Binding .}" />
-                                                </Label.GestureRecognizers>
-                                            </Label>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>-->
-                <CollectionView ItemsSource="{Binding People}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Person">
-                            <VerticalStackLayout Padding="0, 5">
-                                <Label Text="{Binding Name}" FontSize="20">
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PeopleViewModel}}, Path=AddPersonTimeCommand, x:DataType=vm:PeopleViewModel}" 
-                                                              CommandParameter="{Binding .}" />
-                                    </Label.GestureRecognizers>
-                                </Label>
-                                <Border Stroke="{StaticResource TertiaryBrush}" Margin="0,5,0,10" />
-                                <CollectionView ItemsSource="{Binding PersonTimes}">
-                                    <CollectionView.ItemsLayout>
-                                        <GridItemsLayout Orientation="Vertical" Span="4" VerticalItemSpacing="10" />
-                                    </CollectionView.ItemsLayout>
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate x:DataType="model:PersonTime">
-                                            <Label Text="{Binding Time}">
-                                                <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PeopleViewModel}}, Path=RemovePersonTimeCommand, x:DataType=vm:PeopleViewModel}" CommandParameter="{Binding .}" />
-                                                </Label.GestureRecognizers>
-                                            </Label>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
+                        <DataTemplate x:DataType="model:Event">
+                            <VerticalStackLayout Margin="0, 5">
+                                <Grid ColumnDefinitions="*,*,*" Padding="0, 5">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PeopleViewModel}}, Path=RemoveEventCommand, x:DataType=vm:PeopleViewModel}" CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label HorizontalTextAlignment="Center" Text="{Binding Name}" Grid.Row="0" Grid.Column="0"/>
+                                    <Label HorizontalTextAlignment="Center" Text="{Binding Time}" Grid.Row="0" Grid.Column="1"/>
+                                    <Label HorizontalTextAlignment="Center" Text="{Binding Title}" Grid.Row="0" Grid.Column="2"/>
+                                </Grid>
+                                <Border></Border>
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-
-        <StackLayout Grid.Row="1" Padding="10" BackgroundColor="{StaticResource PrimaryDark}">
+        <StackLayout Grid.Row="2" Padding="10" BackgroundColor="{StaticResource PrimaryDark}">
             <Label Text="{Binding TimerText}" FontSize="24" TextColor="{StaticResource White}" Margin="0,0,0,10" HorizontalOptions="Center" />
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
                 <Button Text="Start" Clicked="OnStartButtonClicked" />
@@ -90,5 +62,4 @@
             </HorizontalStackLayout>
         </StackLayout>
     </Grid>
-
 </ContentPage>

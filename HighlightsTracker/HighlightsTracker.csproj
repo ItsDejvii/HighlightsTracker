@@ -32,12 +32,12 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android35.0|AnyCPU'">
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <AndroidLinkTool>r8</AndroidLinkTool>
-	  <ApplicationTitle>Lisjaki Tracker</ApplicationTitle>
+	  <ApplicationTitle>Lisjaki</ApplicationTitle>
 	  <ApplicationId>com.dejvii.highlightstracker</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android35.0|AnyCPU'">
-	  <ApplicationTitle>Lisjaki Tracker</ApplicationTitle>
+	  <ApplicationTitle>Lisjaki</ApplicationTitle>
 	  <ApplicationId>com.dejvii.highlightstracker</ApplicationId>
 	</PropertyGroup>
 
@@ -59,6 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.50" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.3" />
