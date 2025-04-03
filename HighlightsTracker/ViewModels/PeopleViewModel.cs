@@ -94,7 +94,7 @@ namespace HighlightsTracker.ViewModels
             List<string[]> csvData = [];
             for (int i = 0; i < Events.Count; i++)
             {
-                string[] data = { Events[i].Name, Events[i].Time.ToString(@"hh\:mm\:ss"), Events[i].Title };
+                string[] data = { Events[i].Time.ToString(@"hh\:mm\:ss"), Events[i].Title, Events[i].Name };
                 csvData.Add(data);
             }
 

@@ -40,7 +40,7 @@
                             <VerticalStackLayout Margin="0, 5">
                                 <Grid ColumnDefinitions="*,*,*" Padding="0, 5">
                                     <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PeopleViewModel}}, Path=RemoveEventCommand, x:DataType=vm:PeopleViewModel}" CommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="OnDeleteEventClicked" CommandParameter="{Binding .}" />
                                     </Grid.GestureRecognizers>
                                     <Label HorizontalTextAlignment="Center" Text="{Binding Name}" Grid.Row="0" Grid.Column="0"/>
                                     <Label HorizontalTextAlignment="Center" Text="{Binding Time}" Grid.Row="0" Grid.Column="1"/>

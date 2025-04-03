@@ -66,11 +66,15 @@ namespace HighlightsTracker
 
         private async void OnResetButtonClicked(object sender, EventArgs e)
         {
-            _vm.IsRunning = false;
-            _vm.Timer.Reset();
-            _vm.TimerText = "00:00:00";
-            _vm.TimerTimespan = new(0, 0, 0);
-            await StorageService.SaveTimerAsync(_vm.TimerTimespan);
+            bool reset = await DisplayAlert("Reset timer?", "Are you sure you want to reset the timer?", "Yes", "No");
+            if (reset)
+            {
+                _vm.IsRunning = false;
+                _vm.Timer.Reset();
+                _vm.TimerText = "00:00:00";
+                _vm.TimerTimespan = new(0, 0, 0);
+                await StorageService.SaveTimerAsync(_vm.TimerTimespan);
+            }
         }
 
         private async void OnEventButtonClicked(object sender, EventArgs e)
@@ -94,6 +98,22 @@ namespace HighlightsTracker
                 _vm.AddEventCommand.Execute(pe);
             }
 
+        }
+
+        private async void OnDeleteEventClicked(object sender, EventArgs e)
+        {
+
+            if (e is not TappedEventArgs tappedEvent)
+                return;
+
+            if (tappedEvent.Parameter is not Event personEvent)
+                return;
+
+            bool delete = await DisplayAlert("Delete " + personEvent.Name + "'s " + personEvent.Title.ToLower() + "?", "Are you sure you want to delete " + personEvent.Name + "'s " + personEvent.Title.ToLower() + "?", "Yes", "No");
+            if (delete)
+            {
+                _vm.RemoveEventCommand.Execute(personEvent);
+            }
         }
 
         private async void OnDeleteEventsClicked(object sender, EventArgs e)
